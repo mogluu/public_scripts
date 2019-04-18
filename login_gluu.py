@@ -121,10 +121,12 @@ def login(gotourl, gluuurl, username, password, all, waitfor, totalstarttime):
         logout = "True  "
         if count % 2 == 0:
             br.open(gotourl + '/identity/authentication/getauthcode?' + url)
+            br.open(gotourl + '/identity/profile/person/view')
             br.close()
             logout = "False "
         else:
             br.open(gotourl + '/identity/authentication/getauthcode?' + url)
+            br.open(gotourl + '/identity/profile/person/view')
             br.open(gluuurl + '/identity/logout')
             br.close()
         end = time.time()
