@@ -244,6 +244,7 @@ def main():
         if choice_bool:
                 i = 0
                 password_list = []
+                count = 0
                 p = open("gluu_password.txt", "r")
                     for line in p:
                         password_list.append(line.strip())
