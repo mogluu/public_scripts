@@ -121,12 +121,10 @@ def login(gotourl, gluuurl, username, password, all, waitfor, totalstarttime):
         logout = "True  "
         if count % 2 == 0:
             br.open(gotourl + '/identity/authentication/getauthcode?' + url)
-            br.open(gotourl + '/identity/profile/person/view')
             br.close()
             logout = "False "
         else:
             br.open(gotourl + '/identity/authentication/getauthcode?' + url)
-            br.open(gotourl + '/identity/profile/person/view')
             br.open(gluuurl + '/identity/logout')
             br.close()
         end = time.time()
@@ -198,7 +196,7 @@ def main():
         gotourl = raw_input('Enter the URL for SP or RP that you are testing through.\n'
                             'This can be the same as the URL you provided above'
                             ' if you are testing through Gluu identity directly\n')
-        choice = raw_input('Are you loading users through gluu_people.txt generated '
+        choice = raw_input('Are you loading users through gluu_txt.people generated '
                            'from the user addition script?[Y|N]\n')
         choice_bool = False
         choice_pass = False
@@ -231,10 +229,6 @@ def main():
             iterationnumber = int(input("Enter how many times you want this user to login : \n"))
         waitfor = raw_input("Enter time interval in seconds between each login "
                             "(If left empty 60s is the default) : \n")
-        rerun = int(input("How many times do you want to rerun this test"
-                            "(If left empty 1000 is the default) : \n"))
-        if not rerun :
-                rerun = 1000
         # Print descriptions of the progress bar
 
         print "T = Time of login\nL(s) = Time to login\nLO = logout boolean\nU = Users logged " \
@@ -242,28 +236,17 @@ def main():
               "\nETF = Estimated time until finish"
         # User is using gluu_people.txt
         if choice_bool:
-                i = 0
-                e = 0
-                password_list = []
-                p = open("gluu_password.txt", "r")
-                for line in p:
-                    password_list.append(line.strip())
-                print "Rerunning again"
-                while i < rerun:
-                    i += 1
-                    f = open("gluu_people.txt", "r")
-                    for username in f:
-                        # Extract password from the username
-                        # user does not have a gluu_password.txt so will extract pass
-                        if not choice_pass:
-                            password = username[username.find(".") + 1: username.find("@")]
-                        else:
-                            password = password_list[e]
-                            if not password:
-                                password = ''
-                        e += 0
-                        login(gotourl, gluuurl, username, password, numberofusers, waitfor, totalstarttime)
-                    login_report(totalstarttime, count, errors, failedlogins, numberofusers)
+            for username in f:
+                # Extract password from the username
+                # user does not have a gluu_password.txt so will extract pass
+                if not choice_pass:
+                    password = username[username.find(".") + 1: username.find("@")]
+                else:
+                    password = password_list[count]
+                    if not password:
+                        password = ''
+                login(gotourl, gluuurl, username, password, numberofusers, waitfor, totalstarttime)
+            login_report(totalstarttime, count, errors, failedlogins, numberofusers)
         else:
             # Start loop of usernames with analysis of users
             while count < iterationnumber:
