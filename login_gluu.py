@@ -231,7 +231,7 @@ def main():
             iterationnumber = int(input("Enter how many times you want this user to login : \n"))
         waitfor = raw_input("Enter time interval in seconds between each login "
                             "(If left empty 60s is the default) : \n")
-        rerun = int(raw_input("How many times do you want to rerun this test"
+        rerun = int(input("How many times do you want to rerun this test"
                             "(If left empty 1000 is the default) : \n"))
         if not rerun :
                 rerun = 1000
@@ -243,6 +243,7 @@ def main():
         # User is using gluu_people.txt
         if choice_bool:
                 i = 0
+                print " Rerunning again"
                 while i < rerun:
                     i += 1
                     for username in f:
