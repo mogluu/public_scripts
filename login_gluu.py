@@ -243,11 +243,11 @@ def main():
         # User is using gluu_people.txt
         if choice_bool:
                 i = 0
+                e = 0
                 password_list = []
-                count = 0
                 p = open("gluu_password.txt", "r")
-                    for line in p:
-                        password_list.append(line.strip())
+                for line in p:
+                    password_list.append(line.strip())
                 print "Rerunning again"
                 while i < rerun:
                     i += 1
@@ -258,9 +258,10 @@ def main():
                         if not choice_pass:
                             password = username[username.find(".") + 1: username.find("@")]
                         else:
-                            password = password_list[count]
+                            password = password_list[e]
                             if not password:
                                 password = ''
+                        e += 0
                         login(gotourl, gluuurl, username, password, numberofusers, waitfor, totalstarttime)
                     login_report(totalstarttime, count, errors, failedlogins, numberofusers)
         else:
