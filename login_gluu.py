@@ -243,6 +243,7 @@ def main():
         # User is using gluu_people.txt
         if choice_bool:
                 i = 0
+                count = 0
                 print "Rerunning again"
                 while i < rerun:
                     i += 1
