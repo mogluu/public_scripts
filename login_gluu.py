@@ -230,11 +230,11 @@ def main():
                     f = open("gluu_people.txt", "r")
                     numberofusers = sum([1 for i in open("gluu_people.txt", "r").readlines() if i.strip()])
                     waitfor = 0
-                    for username.strip() in f:
+                    for username in f:
                         # Extract password from the username
                         # user does not have a gluu_password.txt so will extract pass
                         password = 'LoadTestFeb142019'
-                        login(gotourl, gluuurl, username, password, numberofusers, waitfor, totalstarttime)
+                        login(gotourl, gluuurl, username.strip(), password, numberofusers, waitfor, totalstarttime)
                     login_report(totalstarttime, count, errors, failedlogins, numberofusers)
         else:
             # Start loop of usernames with analysis of users
