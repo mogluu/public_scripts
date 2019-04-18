@@ -207,6 +207,19 @@ def main():
                 numberofusers = sum([1 for i in open("gluu_people.txt", "r").readlines() if i.strip()])
                 if choicepass.strip() in choices:
                     choice_pass = True
+                    p = open("gluu_password.txt", "r")
+                    for line in p:
+                        password_list.append(line.strip())
+                    if numberofusers == len(password_list):
+                        print "You have " + str(numberofusers) + " users and " + str(len(password_list)) + " passwords."
+                    else:
+                        print "Error: You have " + str(numberofusers) + " users and " + str(len(password_list)) + \
+                              " passwords. Please make sure that all users have passwords or vice versa. \n " \
+                              "Hint: if user Arnold was on line 1 in the gluu_people.txt his password 1234 would " \
+                              "be on line 1 in the gluu_password.txt.\nExiting now..."
+                        sys.exit(0)
+                f = open("gluu_people.txt", "r")
+
             except Exception as e:
                 print e
         else:
@@ -224,15 +237,13 @@ def main():
         # User is using gluu_people.txt
         if choice_bool:
                 i = 0
-                count = 0 
-                while i < 100000:
+                while i < 10000:
+                    count = 0
                     i += 1
                     f = open("gluu_people.txt", "r")
                     numberofusers = sum([1 for i in open("gluu_people.txt", "r").readlines() if i.strip()])
-                    waitfor = 0
+                    count = 0
                     for username in f:
-                        # Extract password from the username
-                        # user does not have a gluu_password.txt so will extract pass
                         password = 'LoadTestFeb142019'
                         login(gotourl, gluuurl, username.strip(), password, numberofusers, waitfor, totalstarttime)
                     login_report(totalstarttime, count, errors, failedlogins, numberofusers)
