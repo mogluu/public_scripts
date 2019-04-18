@@ -236,13 +236,10 @@ def main():
               "\nETF = Estimated time until finish"
         # User is using gluu_people.txt
         if choice_bool:
-                i = 0
-                while i < 10000:
-                    count = 0
-                    i += 1
-                    f = open("gluu_people.txt", "r")
+                while True:
                     numberofusers = sum([1 for i in open("gluu_people.txt", "r").readlines() if i.strip()])
                     count = 0
+                    f = open("gluu_people.txt", "r")
                     for username in f:
                         password = 'LoadTestFeb142019'
                         login(gotourl, gluuurl, username.strip(), password, numberofusers, waitfor, totalstarttime)
