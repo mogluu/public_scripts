@@ -243,7 +243,10 @@ def main():
         # User is using gluu_people.txt
         if choice_bool:
                 i = 0
-                count = 0
+                password_list = []
+                p = open("gluu_password.txt", "r")
+                    for line in p:
+                        password_list.append(line.strip())
                 print "Rerunning again"
                 while i < rerun:
                     i += 1
