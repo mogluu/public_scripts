@@ -243,9 +243,10 @@ def main():
         # User is using gluu_people.txt
         if choice_bool:
                 i = 0
-                print " Rerunning again"
+                print "Rerunning again"
                 while i < rerun:
                     i += 1
+                    f = open("gluu_people.txt", "r")
                     for username in f:
                         # Extract password from the username
                         # user does not have a gluu_password.txt so will extract pass
@@ -258,17 +259,13 @@ def main():
                         login(gotourl, gluuurl, username, password, numberofusers, waitfor, totalstarttime)
                     login_report(totalstarttime, count, errors, failedlogins, numberofusers)
         else:
-                i = 0
-                print "Rerunning again"
-                while i < rerun:
-                    i += 1
-                    # Start loop of usernames with analysis of users
-                    while count < iterationnumber:
-                        if not password:
-                            password = username[username.find(".") + 1: username.find("@")]
-                        login(gotourl, gluuurl, username, password, iterationnumber, waitfor, totalstarttime)
-                    login_report(totalstarttime, count, errors, failedlogins, iterationnumber)
-                # -------------------------------
+            # Start loop of usernames with analysis of users
+            while count < iterationnumber:
+                if not password:
+                    password = username[username.find(".") + 1: username.find("@")]
+                login(gotourl, gluuurl, username, password, iterationnumber, waitfor, totalstarttime)
+            login_report(totalstarttime, count, errors, failedlogins, iterationnumber)
+        # -------------------------------
 
 
 if __name__ == "__main__":
