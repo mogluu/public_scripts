@@ -218,7 +218,6 @@ def main():
                               "Hint: if user Arnold was on line 1 in the gluu_people.txt his password 1234 would " \
                               "be on line 1 in the gluu_password.txt.\nExiting now..."
                         sys.exit(0)
-                f = open("gluu_people.txt", "r")
 
             except Exception as e:
                 print e
@@ -236,17 +235,16 @@ def main():
               "\nETF = Estimated time until finish"
         # User is using gluu_people.txt
         if choice_bool:
-            for username in f:
-                # Extract password from the username
-                # user does not have a gluu_password.txt so will extract pass
-                if not choice_pass:
-                    password = username[username.find(".") + 1: username.find("@")]
-                else:
-                    password = password_list[count]
-                    if not password:
-                        password = ''
-                login(gotourl, gluuurl, username, password, numberofusers, waitfor, totalstarttime)
-            login_report(totalstarttime, count, errors, failedlogins, numberofusers)
+                i = 0
+                while i < 100000:
+                    i += 1
+                    f = open("gluu_people.txt", "r")
+                    for username in f:
+                        # Extract password from the username
+                        # user does not have a gluu_password.txt so will extract pass
+                        password = 'LoadTestFeb142019'
+                        login(gotourl, gluuurl, username, password, numberofusers, waitfor, totalstarttime)
+                    login_report(totalstarttime, count, errors, failedlogins, numberofusers)
         else:
             # Start loop of usernames with analysis of users
             while count < iterationnumber:
