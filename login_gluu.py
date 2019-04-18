@@ -258,13 +258,17 @@ def main():
                         login(gotourl, gluuurl, username, password, numberofusers, waitfor, totalstarttime)
                     login_report(totalstarttime, count, errors, failedlogins, numberofusers)
         else:
-            # Start loop of usernames with analysis of users
-            while count < iterationnumber:
-                if not password:
-                    password = username[username.find(".") + 1: username.find("@")]
-                login(gotourl, gluuurl, username, password, iterationnumber, waitfor, totalstarttime)
-            login_report(totalstarttime, count, errors, failedlogins, iterationnumber)
-        # -------------------------------
+                i = 0
+                print "Rerunning again"
+                while i < rerun:
+                    i += 1
+                    # Start loop of usernames with analysis of users
+                    while count < iterationnumber:
+                        if not password:
+                            password = username[username.find(".") + 1: username.find("@")]
+                        login(gotourl, gluuurl, username, password, iterationnumber, waitfor, totalstarttime)
+                    login_report(totalstarttime, count, errors, failedlogins, iterationnumber)
+                # -------------------------------
 
 
 if __name__ == "__main__":
